@@ -1,0 +1,86 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" 
+th:replace="normal/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>this is User page</title>
+<body>
+
+<!--  STEP 31  -->
+
+<section>
+
+	<div class="card mr-3 ml-3 " th:if=${contact}>
+	
+	<div class="card-body" >   <!-- The div will only we show when use have a valid contact corresponds to the user  -->
+	
+	<div class="container text-center">
+	
+	<img src=""  style="height:200px; width:200px;"  th:src="@{'/img/' +${contact.image}}"  class="my_profile_picture" alt="profile_photo " />
+							
+	<h1 class="mt-3"> <span  th:text="${contact.name}"></span>    (   <span th:text="${contact.secondName}"></span>  )  </h2>
+	
+	
+	<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">SCM_USER<span th:text="${contact.cid}"></span></th>
+   
+    </tr>
+  </thead>
+  
+  
+  <tbody>
+    <tr>
+      <th scope="row"></span>EMail</th>
+      <td><span th:text="${contact.email}"></td>
+    </tr>
+    
+    <tr>
+      <th scope="row"></span>Work</th>
+      <td><span th:text="${contact.work}"></td>
+    </tr>
+    
+  </tbody>
+</table>
+	 
+	 
+	  <div class="description  mt-4">
+       <th:block th:utext="${contact.description}"></th:block>  <!-- th:utext is used to resolve the html provide in description section directly copied form websites. -->
+       </div>
+	
+	<div class="container mt-4">
+	
+
+	
+    
+    <!--Delete From button  -->	
+    <a href="#"  th:onclick="|deleteContact(${contact.cid} )|" class="btn btn-danger btn-block">Delete</a>                       
+	
+	<!-- Update Form Button -->            
+                  <form method="post" th:action="@{'/user/update-contact/'+ ${contact.cid}}" class="mt-2">
+                      <button type="submit" class="btn btn-primary btn-block">Update</button>
+                  </form>
+	
+	
+	</div>
+	
+	</div>
+	</div>
+	
+	
+	
+	
+	</div>
+	<!--To show the unauthorised contact access  -->
+	
+	<h1 class="text-center p-3 mr-4 bg-danger text-white" th:unless="${contact}">You don't have permission to View this Contact...</h1>
+	
+	
+	
+</section>
+
+</body>
+</html>
